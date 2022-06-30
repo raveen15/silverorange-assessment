@@ -21,9 +21,8 @@ repos.get('/', async (_: Request, res: Response) => {
   fetch(url)
   .then(res => res.json())
   .then((out) => {
-    res.send(JSON.stringify(out, null, 4));
+    data = data.concat(out);
+    var filteredData = underscore.where(data, {"fork" : false});
+    res.send(JSON.stringify(filteredData, null, 4));
   })
-
-  // var filteredData = underscore.where(data, {"fork" : false});
-  // res.send(JSON.stringify(filteredData, null, 4));
 });
