@@ -3,7 +3,7 @@ import fetch from 'node-fetch';
 
 export const repos = Router();
 
-var data = require('../../data/repos.json');
+var localJSONData = require('../../data/repos.json');
 
 const underscore = require("underscore");
 
@@ -20,9 +20,10 @@ repos.get('/', async (_: Request, res: Response) => {
 
   fetch(url)
   .then(res => res.json())
-  .then((out) => {
-    data = data.concat(out);
-    var filteredData = underscore.where(data, {"fork" : false});
-    res.send(JSON.stringify(filteredData, null, 4));
+  .then((urlJSONData) => {
+    var concatJSONData = localJSONData.concat(urlJSONData);
+    var filteredJSONData = underscore.where(concatJSONData, {"fork" : false});
+    res.send(JSON.stringify(filteredJSONData, null, 4));
   })
+  .catch(err => {throw err})
 });
