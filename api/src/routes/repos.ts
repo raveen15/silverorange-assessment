@@ -3,7 +3,10 @@ import { Router, Request, Response } from 'express';
 export const repos = Router();
 
 repos.get('/', async (_: Request, res: Response) => {
-  res.header('Cache-Control', 'no-store');
+  res.header({
+    'Cache-Control' : 'no-store',
+    'Content-Type' : 'application/json'
+  });
 
   res.status(200);
 
