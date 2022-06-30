@@ -4,6 +4,8 @@ export const repos = Router();
 
 var data = require('../../data/repos.json');
 
+const underscore = require("underscore");
+
 repos.get('/', async (_: Request, res: Response) => {
   res.header({
     'Cache-Control' : 'no-store',
@@ -13,5 +15,8 @@ repos.get('/', async (_: Request, res: Response) => {
   res.status(200);
 
   // TODO: See README.md Task (A). Return repo data here. You’ve got this!
-  res.send(JSON.stringify(data, null, 4));
+
+  var filteredData = underscore.where(data, {"fork" : false});
+
+  res.send(JSON.stringify(filteredData, null, 4));
 });
