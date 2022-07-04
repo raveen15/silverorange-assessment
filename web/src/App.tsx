@@ -16,7 +16,26 @@ export default class App extends React.Component<any, any> {
     });
   }
 
-  render(): React.ReactNode {
+  buttons = [
+    {
+      name: 'TypeScript',
+      value: 'TypeScript'
+    },
+    {
+      name: 'PHP',
+      value: 'PHP'
+    },
+    {
+      name: 'English',
+      value: 'English'
+    },
+    {
+      name: 'French',
+      value: 'French'
+    }
+  ]
+
+  public render() {
     return (
       <div className="App">
         <h1>Repositories</h1>
@@ -44,6 +63,15 @@ export default class App extends React.Component<any, any> {
             )
           )}
         </table>
+        {this.buttons && 
+          this.buttons.map((language, index) => (
+            <>
+              <button key={index} value={language.value}>
+                {language.name}
+              </button>
+            </>
+          ))
+        }
       </div>
     );
   }
