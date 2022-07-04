@@ -1,9 +1,22 @@
 import React from 'react';
-
+import axios from 'axios';
 import './App.css';
 
 export default class App extends React.Component<any, any>{
-  
+  constructor(props: any){
+    super(props)
+    this.state = {
+      repos: [],
+    }
+  }
+
+  fetchRepositories() {
+    axios.get('http://localhost:4000/repos')
+    .then((res) => {
+      this.setState({ repos: res.data });
+    })
+  }
+
   render(): React.ReactNode {
     return (
       <div className="App">
