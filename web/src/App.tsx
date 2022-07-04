@@ -10,7 +10,7 @@ export default class App extends React.Component<any, any>{
     }
   }
 
-  fetchRepositories() {
+  componentDidMount() {
     axios.get('http://localhost:4000/repos')
     .then((res) => {
       this.setState({ repos: res.data });
