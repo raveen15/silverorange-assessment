@@ -19,30 +19,31 @@ export default class App extends React.Component<any, any> {
   buttons = [
     {
       name: 'TypeScript',
-      value: 'TypeScript'
+      value: 'TypeScript',
     },
     {
       name: 'PHP',
-      value: 'PHP'
+      value: 'PHP',
     },
     {
       name: 'English',
-      value: 'English'
+      value: 'English',
     },
     {
       name: 'French',
-      value: 'French'
-    }
-  ]
+      value: 'French',
+    },
+  ];
 
-  filteredRepository(value: string){
-    let repoLanguageSelect = value;
-    axios.get('http://localhost:4000/repos')
-    .then((res) => {
+  filteredRepository(value: string) {
+    const repoLanguageSelect = value;
+    axios.get('http://localhost:4000/repos').then((res) => {
       this.setState({
-        repos: res.data.filter((l: { language: string; }) => l.language == repoLanguageSelect)
-      })
-    })
+        repos: res.data.filter(
+          (l: { language: string }) => l.language === repoLanguageSelect
+        ),
+      });
+    });
   }
 
   public render() {
@@ -73,15 +74,18 @@ export default class App extends React.Component<any, any> {
             )
           )}
         </table>
-        {this.buttons && 
+        {this.buttons &&
           this.buttons.map((language, index) => (
             <>
-              <button key={index} value={language.value} onClick={() => this.filteredRepository(language.value)} >
+              <button
+                key={index}
+                value={language.value}
+                onClick={() => this.filteredRepository(language.value)}
+              >
                 {language.name}
               </button>
             </>
-          ))
-        }
+          ))}
       </div>
     );
   }
