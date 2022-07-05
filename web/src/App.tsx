@@ -7,6 +7,7 @@ export default class App extends React.Component<any, any> {
     super(props);
     this.state = {
       repos: [],
+      selectedRepo: [],
     };
   }
 
@@ -47,8 +48,7 @@ export default class App extends React.Component<any, any> {
   }
 
   repositoryInfo(value: any) {
-    let repoInfo = value;
-    alert(repoInfo.created_at);
+    this.setState({selectedRepo: value});
   }
 
   public render() {
@@ -92,6 +92,10 @@ export default class App extends React.Component<any, any> {
               </button>
             </>
           ))}
+          <h2>Selected Repo</h2>
+          <p>Recent commit date: {this.state.selectedRepo.updated_at}</p>
+          <p>Author: {this.state.selectedRepo.updated_at}</p>
+          <p>Message: {this.state.selectedRepo.updated_at}</p>
       </div>
     );
   }
