@@ -35,6 +35,16 @@ export default class App extends React.Component<any, any> {
     }
   ]
 
+  filteredRepository(value: string){
+    let repoLanguageSelect = value;
+    axios.get('http://localhost:4000/repos')
+    .then((res) => {
+      this.setState({
+        repos: res.data.filter((l: { language: string; }) => l.language == repoLanguageSelect)
+      })
+    })
+  }
+
   public render() {
     return (
       <div className="App">
@@ -66,7 +76,7 @@ export default class App extends React.Component<any, any> {
         {this.buttons && 
           this.buttons.map((language, index) => (
             <>
-              <button key={index} value={language.value}>
+              <button key={index} value={language.value} onClick={() => this.filteredRepository(language.value)} >
                 {language.name}
               </button>
             </>
