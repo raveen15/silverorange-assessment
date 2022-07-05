@@ -46,6 +46,11 @@ export default class App extends React.Component<any, any> {
     });
   }
 
+  repositoryInfo(value: any) {
+    let repoInfo = value;
+    alert(repoInfo.created_at);
+  }
+
   public render() {
     return (
       <div className="App">
@@ -66,7 +71,7 @@ export default class App extends React.Component<any, any> {
               language: string;
               forks_count: number;
             }) => (
-              <tr key={repo.id}>
+              <tr key={repo.id} onClick={() => this.repositoryInfo(repo)} >
                 <td>{repo.name}</td>
                 <td>{repo.description}</td>
                 <td>{repo.language}</td>
