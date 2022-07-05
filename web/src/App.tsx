@@ -57,7 +57,8 @@ export default class App extends React.Component<any, any> {
             <th>Language</th>
             <th>Fork Count</th>
           </tr>
-          {this.state.repos.map(
+          {this.state.repos.sort((a: any, b: any) => b.created_at > a.created_at ? 1 : -1)
+          .map(
             (repo: {
               id: number;
               name: string;
