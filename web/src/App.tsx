@@ -50,19 +50,18 @@ export default class App extends React.Component<any, any> {
   }
 
   repositoryInfo(value: any) {
-    this.setState({selectedRepo: value});
-    let readmePath = `https://raw.githubusercontent.com/${this.state.selectedRepo.full_name}/master/README.md`;
+    this.setState({ selectedRepo: value });
+    const readmePath = `https://raw.githubusercontent.com/${this.state.selectedRepo.full_name}/master/README.md`;
     fetch(readmePath)
-    .then((res) => {
-      return res.text()
-    })
-    .then(text => {
-      this.setState({ readme: text})
-    })
+      .then((res) => {
+        return res.text();
+      })
+      .then((text) => {
+        this.setState({ readme: text });
+      });
   }
 
   public render() {
-    const { readme } = this.state;
     return (
       <div className="App">
         <h1>Repositories</h1>
@@ -73,23 +72,24 @@ export default class App extends React.Component<any, any> {
             <th>Language</th>
             <th>Fork Count</th>
           </tr>
-          {this.state.repos.sort((a: any, b: any) => b.created_at > a.created_at ? 1 : -1)
-          .map(
-            (repo: {
-              id: number;
-              name: string;
-              description: string;
-              language: string;
-              forks_count: number;
-            }) => (
-              <tr key={repo.id} onClick={() => this.repositoryInfo(repo)} >
-                <td>{repo.name}</td>
-                <td>{repo.description}</td>
-                <td>{repo.language}</td>
-                <td>{repo.forks_count}</td>
-              </tr>
-            )
-          )}
+          {this.state.repos
+            .sort((a: any, b: any) => (b.created_at > a.created_at ? 1 : -1))
+            .map(
+              (repo: {
+                id: number;
+                name: string;
+                description: string;
+                language: string;
+                forks_count: number;
+              }) => (
+                <tr key={repo.id} onClick={() => this.repositoryInfo(repo)}>
+                  <td>{repo.name}</td>
+                  <td>{repo.description}</td>
+                  <td>{repo.language}</td>
+                  <td>{repo.forks_count}</td>
+                </tr>
+              )
+            )}
         </table>
         {this.buttons &&
           this.buttons.map((language, index) => (
@@ -103,12 +103,14 @@ export default class App extends React.Component<any, any> {
               </button>
             </>
           ))}
-          <h2>Selected Repo</h2>
-          <p>Recent commit date: {this.state.selectedRepo.updated_at}</p>
-          <p>Author: {this.state.selectedRepo.updated_at}</p>
-          <p>Message: {this.state.selectedRepo.updated_at}</p>
-          <ReactMarkdown>{this.state.readme}</ReactMarkdown>
-          <button onClick={() => this.componentDidMount()}>Main Repositories</button>
+        <h2>Selected Repo</h2>
+        <p>Recent commit date: {this.state.selectedRepo.updated_at}</p>
+        <p>Author: Can't seem to find author or message in JSON file...</p>
+        <p>Message: I have sent an email regarding this :)</p>
+        <ReactMarkdown>{this.state.readme}</ReactMarkdown>
+        <button onClick={() => this.componentDidMount()}>
+          Main Repositories
+        </button>
       </div>
     );
   }
