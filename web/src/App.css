@@ -44,3 +44,7 @@ table, th, td{
 button{
   margin: 10px;
 }
+
+table tr:hover {
+  background-color: #ddd;
+}
