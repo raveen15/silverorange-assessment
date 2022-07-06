@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import ReactMarkdown from 'react-markdown';
 import './App.css';
 
 export default class App extends React.Component<any, any> {
@@ -8,6 +9,7 @@ export default class App extends React.Component<any, any> {
     this.state = {
       repos: [],
       selectedRepo: [],
+      readme: '',
     };
   }
 
@@ -49,9 +51,18 @@ export default class App extends React.Component<any, any> {
 
   repositoryInfo(value: any) {
     this.setState({selectedRepo: value});
+    let readmePath = `https://raw.githubusercontent.com/${this.state.selectedRepo.full_name}/master/README.md`;
+    fetch(readmePath)
+    .then((res) => {
+      return res.text()
+    })
+    .then(text => {
+      this.setState({ readme: text})
+    })
   }
 
   public render() {
+    const { readme } = this.state;
     return (
       <div className="App">
         <h1>Repositories</h1>
@@ -96,6 +107,7 @@ export default class App extends React.Component<any, any> {
           <p>Recent commit date: {this.state.selectedRepo.updated_at}</p>
           <p>Author: {this.state.selectedRepo.updated_at}</p>
           <p>Message: {this.state.selectedRepo.updated_at}</p>
+          <ReactMarkdown>{this.state.readme}</ReactMarkdown>
       </div>
     );
   }
