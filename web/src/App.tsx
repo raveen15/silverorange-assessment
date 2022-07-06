@@ -108,6 +108,7 @@ export default class App extends React.Component<any, any> {
           <p>Author: {this.state.selectedRepo.updated_at}</p>
           <p>Message: {this.state.selectedRepo.updated_at}</p>
           <ReactMarkdown>{this.state.readme}</ReactMarkdown>
+          <button onClick={() => this.componentDidMount()}>Main Repositories</button>
       </div>
     );
   }
